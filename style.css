@@ -1,0 +1,23 @@
+#warstwa1, #warstwa2, #warstwa13, #warstwa14, #warstwa15{
+	background-color: #002a00;
+}
+#warstwa9, #warstwa10, #warstwa11, #warstwa12{
+	background-color: black;
+}
+#warstwa3, #warstwa4, #warstwa5, #warstwa6, #warstwa7{
+	background-color: #0316b0;
+}
+#warstwa8{
+	 background-image: url("obrazy/w8.png");
+}
+
+body{
+	margin: 0;
+	}
+	@font-face {
+    font-family: myFont;
+    src: url(ARCADECLASSIC.TTF);
+}
+p{
+	font-family: myFont
+}

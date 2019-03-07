@@ -1,0 +1,880 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css"/>
+<title>Frooger</title>
+<script>
+var pw12 = [],  pw11 = [], pw9 = [], pw7 = [], pw6=[] ,pw5 = [], pw4 = [], pw3 = [],pw10, frog = 0, bw2 = [], w1=[], pkt = 0,time =[]
+var myVar,score=[], tint, mv, jum =0,plusten =10,tempoq = 0,zdobb = 0
+var pszesc = 6, psied = 7, posiem = 8, pdziew = 9, pdycha = 10; ppiet = 15
+function init(){
+			document.addEventListener("keydown", onKeyDown, false)
+			
+			document.getElementById("plansza").style.position = "absolute"
+		
+			for(i =1; i<16; i++)
+			{
+				var warstwa = document.createElement("div");
+				warstwa.style.width = "100vw";
+				if(i == 2){
+				warstwa.style.height = window.innerHeight /12 + "px";
+				warstwa.style.marginTop= window.innerHeight /18 * (i-1)    +"px"}
+					else{
+				warstwa.style.height = window.innerHeight /15 + "px";
+				warstwa.style.marginTop= window.innerHeight /15  * (i-1)  +"px"}
+				warstwa.id = "warstwa"+i;
+				warstwa.style.position = "absolute"
+				warstwa.style.overflow = "hidden"
+				document.getElementById("plansza").appendChild(warstwa);
+			}
+
+			for(i =0; i<5; i++)
+			{
+				bw2[i] = document.createElement("img");
+				bw2[i].src = "obrazy/sc.png"
+				bw2[i].style.width = window.innerWidth/5 + "px";
+				bw2[i].style.height = window.innerHeight /12 + "px";
+				bw2[i].style.marginLeft= window.innerWidth/5 * i   +"px"
+				bw2[i].style.position = "absolute"
+			//	bw2[i].style.display = "inline-block"
+				document.getElementById("warstwa2").appendChild(bw2[i]);
+				
+				
+			}
+			for(i =0; i<2; i++){
+			if(i ==0){	
+			time[i] = document.createElement("p");
+				time[i].innerHTML = "TIME"
+				time[i].style.marginLeft= window.innerWidth/9  +"px"
+				time[i].style.color = "#cc6134"
+				time[i].style.top= -window.innerHeight /15  +"px"
+				time[i].style.fontSize = window.innerHeight /15  +"px"
+			}
+			else{
+				time[i] = document.createElement("div");
+				time[i].id = "time"
+				time[i].style.bottom= 5  +"px"
+				time[i].style.height = window.innerHeight /22  +"px"
+				time[i].style.width = window.innerWidth /1.7  +"px"
+				time[i].style.backgroundColor = "#cc6134"
+				time[i].style.marginLeft= window.innerWidth/4    +"px"
+			}
+				
+				
+				time[i].style.position = "absolute"
+				
+			
+				document.getElementById("warstwa13").appendChild(time[i]);}
+			for(i =0; i<2; i++){
+			score[i] = document.createElement("p");
+			if(i ==0){
+				score[i].innerHTML = "1UP"
+				score[i].style.marginLeft= window.innerWidth/9  +"px"
+			}
+			else{
+				score[i].innerHTML = pkt
+				score[i].style.marginLeft= window.innerWidth/4    +"px"
+			}
+				
+				score[i].style.color = "8bdaff"
+				score[i].style.position = "absolute"
+				score[i].style.top= -window.innerHeight /15  +"px"
+				score[i].style.fontSize = window.innerHeight /15  +"px"
+			//	bw2[i].style.display = "inline-block"
+				document.getElementById("warstwa14").appendChild(score[i]);}
+			for(i =0; i<4; i++)
+			{
+				pw12[i] = document.createElement("img");
+				pw12[i].src = "obrazy/pw12.gif"
+				pw12[i].style.height = window.innerHeight * 0.050 + "px";
+				pw12[i].style.left = window.innerWidth/4 * i +"px";
+				pw12[i].style.position = "absolute"
+				document.getElementById("warstwa12").appendChild(pw12[i]);
+				
+				poj12()
+			}
+				for(i =0; i<2; i++)
+			{
+				w1[i] = document.createElement("img");
+				w1[i].style.position = "absolute"
+				if(i ==0){
+				w1[i].src = "obrazy/fast.png"
+				w1[i].id = "fastorslow"
+				w1[i].style.left = window.innerWidth/8+"px";}
+				else{
+				w1[i].src = "obrazy/life4.png"
+				w1[i].style.right = window.innerWidth/5  +"px";}
+				w1[i].style.height = window.innerHeight * 0.035 + "px";
+				w1[i].style.top= 5  +"px";
+				
+				document.getElementById("warstwa1").appendChild(w1[i]);
+				
+			}
+			for(i =0; i<4; i++)
+			{
+				pw11[i] = document.createElement("img");
+				pw11[i].src = "obrazy/pw11.png"
+				pw11[i].style.height = window.innerHeight * 0.050 + "px";
+				pw11[i].style.right = window.innerWidth/4 * i +"px";
+				pw11[i].style.position = "absolute"
+				document.getElementById("warstwa11").appendChild(pw11[i]);
+				
+				poj11()
+			}
+			pw10 = document.createElement("img");
+				pw10.src = "obrazy/pw10.png"
+				pw10.style.height = window.innerHeight * 0.050 + "px";
+				pw10.style.left ="0px";
+				pw10.style.position = "absolute"
+				document.getElementById("warstwa10").appendChild(pw10);
+				
+				poj10()
+			for(i =0; i<4; i++)
+			{
+				pw9[i] = document.createElement("img");
+				pw9[i].src = "obrazy/pw9.png"
+				pw9[i].style.top ="4px";
+				pw9[i].style.height = window.innerHeight * 0.050 + "px";
+				pw9[i].style.right = window.innerWidth/4 * i +"px";
+				pw9[i].style.position = "absolute"
+				document.getElementById("warstwa9").appendChild(pw9[i]);
+				
+				poj9()
+			}
+			for(i =-1; i<3; i++)
+			{
+				pw3[i] = document.createElement("img");
+				pw3[i].src = "obrazy/pw3d.png"
+				pw3[i].style.height = window.innerHeight * 0.051 + "px";
+				pw3[i].style.width ="22vw";
+				pw3[i].style.left = window.innerWidth/3 * i +"px";
+				pw3[i].style.top ="3px";
+				pw3[i].style.position = "absolute"
+				document.getElementById("warstwa3").appendChild(pw3[i]);
+				
+				poj3()
+			}
+			for(i =-1; i<2; i++)
+			{
+				pw5[i] = document.createElement("img");
+				pw5[i].src = "obrazy/pw5.png"
+				pw5[i].style.height = window.innerHeight * 0.055 + "px";
+				pw5[i].style.width ="36vw";
+				pw5[i].style.left = window.innerWidth/2 * i +"px";
+				pw5[i].style.top ="3px";
+				pw5[i].style.position = "absolute"
+				document.getElementById("warstwa5").appendChild(pw5[i]);
+				
+				poj5()
+			}
+			for(i =-1; i<4; i++)
+			{
+				pw6[i] = document.createElement("img");
+				pw6[i].src = "obrazy/pw6.png"
+				pw6[i].style.height = window.innerHeight * 0.055 + "px";
+				pw6[i].style.width ="17vw";
+				pw6[i].style.left = window.innerWidth/4 * i +"px";
+				pw6[i].style.top ="3px";
+				pw6[i].style.position = "absolute"
+				document.getElementById("warstwa6").appendChild(pw6[i]);
+				
+				poj6()
+			}
+			for(i =-1; i<3; i++)
+			{
+				pw7[i] = document.createElement("img");
+				pw7[i].src = "obrazy/pw7.gif"
+				pw7[i].style.height = window.innerHeight * 0.055 + "px";
+				pw7[i].style.width ="20vw";
+				pw7[i].style.right = window.innerWidth/3 * i +"px";
+				pw7[i].style.top ="3px";
+				pw7[i].style.position = "absolute"
+				document.getElementById("warstwa7").appendChild(pw7[i]);
+				
+				poj7()
+			}
+			for(i =-1; i<3; i++)
+			{
+				pw4[i] = document.createElement("img");
+				pw4[i].src = "obrazy/pw4.gif"
+				pw4[i].style.height = window.innerHeight * 0.055 + "px";
+				pw4[i].style.width ="25vw";
+				pw4[i].style.right = window.innerWidth/3 * i +"px";
+				pw4[i].style.top ="3px";
+				pw4[i].style.position = "absolute"
+				document.getElementById("warstwa4").appendChild(pw4[i]);
+				
+				poj4()
+			}
+
+		}
+	var playertop =window.innerHeight /15  * 12 
+	var playerleft=window.innerWidth *0.45
+
+function onKeyDown(event) {
+		
+            var keyCode = event.which; // kod klawisza
+           if(frog == 0)
+           {
+           		document.getElementById("audiostart").play()
+				frog = document.createElement("img");
+				frog.src = "obrazy/frog.png"
+				frog.style.width = "4vw";
+				//frog.style.height = window.innerHeight * 0.045 + "px";
+				frog.style.marginTop= window.innerHeight /15  * 12 + 4 +"px"
+				frog.style.marginLeft= window.innerWidth *0.45    +"px"
+				frog.id = "player";
+				frog.style.position = "fixed"
+				document.getElementById("plansza").appendChild(frog);
+				timee()
+           }
+           else{
+           // console.log(keyCode);
+
+            switch (keyCode) {
+            	
+               
+                case 87:
+            
+                   // console.log("naciskasz w");
+                  if(jum == 0){
+				jum =1
+				document.getElementById("jump").play()
+				}
+				else if(jum == 1){
+				jum =0
+				document.getElementById("jump2").play()
+				}
+                   if(playertop >= window.innerHeight /15  ){  
+                   frog.src = "obrazy/frogjump.png"
+                   setTimeout(function(){
+                   frog.src = "obrazy/frog.png" 
+               },200)
+
+                   frog.style.transform = "initial"     
+                   playertop -= window.innerHeight /15.1
+                   frog.style.marginTop = playertop  +"px"
+                   kolizja()
+                   
+              		 }
+					 
+              		plywanie()
+                   pkt += plusten
+                   score[1].innerHTML = pkt 
+                    break;
+
+                case 83:
+                clearInterval(mv)
+
+                if(jum == 0){
+				jum =1
+				document.getElementById("jump").play()
+				}
+				else if(jum == 1){
+				jum =0
+				document.getElementById("jump2").play()
+				}
+                 //  console.log("naciskasz s");
+ 				if(playertop <=window.innerHeight /15  * 13  ){
+ 					frog.src = "obrazy/frogjump.png"
+                   setTimeout(function(){
+                   frog.src = "obrazy/frog.png" 
+               },200)
+ 					frog.style.transform = "initial" 
+ 					frog.style.transform = "rotate(180deg)"
+                    playertop += window.innerHeight /15 
+                   frog.style.marginTop = playertop  +"px"
+                  kolizja()
+                  }
+                  plywanie()
+					break;
+
+				case 65:
+				if(jum == 0){
+				jum =1
+				document.getElementById("jump").play()
+				}
+				else if(jum == 1){
+				jum =0
+				document.getElementById("jump2").play()
+				}
+               //     console.log("naciskasz a");
+			if(playerleft >= 0 ){
+ 					frog.src = "obrazy/frogjump.png"
+                   setTimeout(function(){
+                   frog.src = "obrazy/frog.png" 
+               },200)
+ 					frog.style.transform = "initial" 
+ 					frog.style.transform = "rotate(270deg)"
+                    playerleft -= window.innerHeight /15
+                   frog.style.marginLeft = playerleft  +"px"
+                   kolizja() }
+                  // plywanie()
+                    break;
+
+                    case 68:
+					if(jum == 0){
+				jum =1
+				document.getElementById("jump").play()
+				}
+				else if(jum == 1){
+				jum =0
+				document.getElementById("jump2").play()
+				}
+                 //   console.log("naciskasz d");
+				if(playerleft <= window.innerWidth ){
+ 					frog.src = "obrazy/frogjump.png"
+                   setTimeout(function(){
+                   frog.src = "obrazy/frog.png" 
+               },200)
+ 					frog.style.transform = "initial" 
+ 					frog.style.transform = "rotate(90deg)"
+                    playerleft += window.innerHeight /15 
+                   frog.style.marginLeft = playerleft  +"px" 
+					kolizja()
+
+               }
+
+                //   plywanie()
+                    break;
+						case 81:
+					     console.log("naciskasz q");	
+					if(tempoq == 0){
+					pszesc = 3, psied = 4, posiem = 5, pdziew = 6, pdycha = 7; ppiet = 12
+					w1[0].src = "obrazy/slow.png"
+					tempoq = 1
+					}
+					else if(tempoq == 1){
+					pszesc = 6, psied = 7, posiem = 8, pdziew = 9, pdycha = 10; ppiet = 15
+					w1[0].src = "obrazy/fast.png"
+					tempoq = 0
+					}
+               
+			break;
+            }}
+
+        }
+        life =4
+        function kaput(){
+
+        	clearInterval(mv)
+        	clearInterval(myVar)
+        	clearInterval(tint)
+        	var pozt = playertop
+        	playertop = -1111
+        	frog.style.marginTop= "-1192px"
+        	die(pozt)
+        	setTimeout(function(){
+        		life -= 1
+        		if(life == -1 ){
+				plusten = 0
+        		document.getElementById("gover").play()
+        		setTimeout(function(){
+				location.reload();
+			},4000)}
+        		else{
+        	time[0].style.color = "#cc6134"
+			time[1].style.backgroundColor = "#cc6134"
+			time[1].style.width = window.innerWidth /1.7  +"px"
+			timee()
+        	playertop = window.innerHeight /15  * 12 + 4
+        	playerleft =window.innerWidth *0.45 
+        	 frog.style.transform = "initial"
+        	frog.style.marginTop=playertop  +"px";
+				frog.style.marginLeft=  playerleft  +"px";
+			
+w1[1].src = "obrazy/life"+life+".png"
+        	
+        	}
+
+        	
+			
+        	
+       },600)
+        	
+				
+
+
+        }
+        function kolizja(){
+        	//console.log(window.innerHeight /15  * 12 +"  ----- "+ playertop+" ------ "+window.innerHeight /15  * 11)
+        	  clearInterval(myVar);
+        	  if(playerleft < 0 || playerleft > window.innerWidth)
+        	  	kaput()
+
+        	if(playertop< window.innerHeight /15  * 12 && playertop > window.innerHeight /15  * 11 ){
+        		myVar = setInterval(function(){
+        		for(i =0; i<4; i++){
+				var rect = pw12[i].getBoundingClientRect(); 
+				if(playerleft>= rect.left - window.innerWidth*0.04 && playerleft < rect.right - 5){
+					console.log("koniec")
+					kaput()
+				}
+			}
+			},50)
+        	}
+        	else if(playertop< window.innerHeight /15  * 11 && playertop > window.innerHeight /15  * 10  ){
+        		myVar = setInterval(function(){
+        		for(i =0; i<4; i++){
+				var rect = pw11[i].getBoundingClientRect(); 
+				if(playerleft>= rect.left - window.innerWidth*0.04 && playerleft < rect.right - 5){
+					console.log("koniec")
+					kaput()
+				}
+			}
+			},50)
+        	}
+        	else if(playertop< window.innerHeight /15  * 10 && playertop > window.innerHeight /15  * 9 ){
+        		myVar = setInterval(function(){
+        		
+				var rect = pw10.getBoundingClientRect(); 
+				if(playerleft>= rect.left - window.innerWidth*0.04 && playerleft < rect.right - 5){
+					console.log("koniec")
+				kaput()
+			}
+			
+			},50)
+        	}
+        	else if(playertop< window.innerHeight /15  * 9 && playertop > window.innerHeight /15  * 8 ){
+        		myVar = setInterval(function(){
+        		for(i =0; i<4; i++){
+				var rect = pw9[i].getBoundingClientRect(); 
+				if(playerleft>= rect.left - window.innerWidth*0.04 && playerleft < rect.right - 5){
+					console.log("koniec")
+					kaput()
+				}
+			}
+			},50)
+        	}
+        	else if(playertop< window.innerHeight /15  * 7 && playertop > window.innerHeight /15  * 6 ){
+        		
+        		
+        		for(i =-1; i<3; i++){
+				var rect1 = pw7[i].getBoundingClientRect(); 
+				if(i == 2)
+				var rect2 = pw7[-1].getBoundingClientRect();
+				else
+				var rect2 = pw7[i +1].getBoundingClientRect(); 
+				if(playerleft> rect2.right  && playerleft < rect1.left ){
+					
+					kaput()
+				}
+			}
+			
+        	}
+        	else if(playertop< window.innerHeight /15  * 4 && playertop > window.innerHeight /15  * 3 ){
+        		
+        		
+        		for(i =-1; i<3; i++){
+				var rect1 = pw4[i].getBoundingClientRect(); 
+				if(i == 2)
+				var rect2 = pw4[-1].getBoundingClientRect();
+				else
+				var rect2 = pw4[i +1].getBoundingClientRect(); 
+				if(playerleft> rect2.right  && playerleft < rect1.left ){
+					
+					kaput()
+				}
+			}
+			
+        	}
+			else if(playertop< window.innerHeight /15  * 5 && playertop > window.innerHeight /15  * 4 ){
+        		
+        		
+        		for(i =-1; i<2; i++){
+				var rect1 = pw5[i].getBoundingClientRect(); 
+				if(i == 1)
+				var rect2 = pw5[-1].getBoundingClientRect();
+				//alert(rect2.left+"   -   "+playerleft+"   -   "+rect1.right)
+				else
+				var rect2 = pw5[i +1].getBoundingClientRect(); 
+				if(playerleft< rect2.left  && playerleft > rect1.right){
+					
+					kaput()
+			}
+			}
+			
+        	}
+		else if(playertop< window.innerHeight /15  * 6 && playertop > window.innerHeight /15  * 5 ){
+        		
+        		
+        		for(i =-1; i<4; i++){
+				var rect1 = pw6[i].getBoundingClientRect(); 
+				if(i == 3)
+				var rect2 = pw6[-1].getBoundingClientRect();
+				//alert(rect2.left+"   -   "+playerleft+"   -   "+rect1.right)
+				else
+				var rect2 = pw6[i +1].getBoundingClientRect(); 
+				if(playerleft< rect2.left  && playerleft > rect1.right){
+					
+					kaput()
+			}
+			}
+			
+        	}
+        	else if(playertop< window.innerHeight /15  * 3 && playertop > window.innerHeight /15  *2 ){
+        		
+        		
+        		for(i =-1; i<3; i++){
+				var rect1 = pw3[i].getBoundingClientRect(); 
+				if(i == 2)
+				var rect2 = pw3[-1].getBoundingClientRect();
+				//alert(rect2.left+"   -   "+playerleft+"   -   "+rect1.right)
+				else
+				var rect2 = pw3[i +1].getBoundingClientRect(); 
+				if(playerleft< rect2.left  && playerleft > rect1.right){
+					
+					kaput()
+			}
+			}
+			
+        	}
+        	else if(playertop< window.innerHeight /15  *2 && playertop > window.innerHeight /15  *1 ){
+        		
+        		
+        		for(i =0; i<5; i++){
+				
+				var rect1 = bw2[i].getBoundingClientRect(); 
+				if(i==4)
+				var rect2 = bw2[0].getBoundingClientRect();
+				else
+				var rect2 = bw2[i+1].getBoundingClientRect(); 
+				if(playerleft> rect1.left  && playerleft < rect1.right ){
+				//console.log(rect1.right - window.innerWidth/5*0.3  + "  --  "+playerleft+" - - "+ rect2.left + window.innerWidth/5*0.3 )
+			
+				if(playerleft> rect1.left + window.innerWidth/5*0.3  && playerleft < rect1.right- window.innerWidth/5*0.3){
+				
+				if(bw2[i].src == "obrazy/sc2.png" )
+				console.log("das")
+				//kaput()
+				else{
+					bw2[i].innerHTML = "."
+					bw2[i].src = "obrazy/sc2.png"
+					zdobb +=1
+					if(zdobb == 5)
+					nextlevel()
+					playertop = window.innerHeight /15  * 12 + 4
+        	playerleft =window.innerWidth *0.45 
+        	 frog.style.transform = "initial"
+
+        	frog.style.marginTop=playertop  +"px";
+        	 clearInterval(tint)
+        	time[0].style.color = "#cc6134"
+			time[1].style.backgroundColor = "#cc6134"
+			time[1].style.width = window.innerWidth /1.7  +"px"
+			timee()
+				frog.style.marginLeft=  playerleft  +"px"
+				pkt += 400
+                   score[1].innerHTML = pkt 
+			}}
+			else{
+	
+		if(playerleft> rect1.right - window.innerWidth/5*0.3  || playerleft < rect1.left + window.innerWidth/5*0.3)
+			
+				kaput()
+			}
+		}
+			
+			
+        	}
+        }}
+        function plywanie(){
+		clearInterval(mv)	
+        	if(playertop< window.innerHeight /15  * 7 && playertop > window.innerHeight /15  * 6 ){
+        		 
+        		mv = setInterval(function(){ 	
+        		for(i =-1; i<3; i++){  			
+				var rect1 = pw7[i].getBoundingClientRect(); 
+				if(i == 2)
+				var rect2 = pw7[-1].getBoundingClientRect();
+				else
+				var rect2 = pw7[i +1].getBoundingClientRect();
+				if(playerleft <= rect1.right  && playerleft >=rect2.left   ){					
+					//console.log("Fff")
+					playerleft -= pszesc	
+					frog.style.marginLeft = playerleft  +"px"
+					kolizja()
+					}		
+}	
+        },50)   
+        }
+        if(playertop< window.innerHeight /15  * 4&& playertop > window.innerHeight /15  * 3 ){
+        		 
+        		mv = setInterval(function(){ 	
+        		for(i =-1; i<3; i++){  			
+				var rect1 = pw4[i].getBoundingClientRect(); 
+				if(i == 2)
+				var rect2 = pw4[-1].getBoundingClientRect();
+				else
+				var rect2 = pw4[i +1].getBoundingClientRect();
+				if(playerleft <= rect1.right  && playerleft >=rect2.left   ){					
+					//console.log("Fff")
+					playerleft -= pdziew	
+					frog.style.marginLeft = playerleft  +"px"
+					kolizja()
+					}		
+}	
+        },50)   
+        }
+   else if(playertop< window.innerHeight /15  * 6 && playertop > window.innerHeight /15  * 5 ){ 
+        		mv = setInterval(function(){ 	
+        		for(i =-1; i<4; i++){
+        		var rect1 = pw6[i].getBoundingClientRect(); 
+				if(i == 3)
+				var rect2 = pw6[-1].getBoundingClientRect();
+				else
+				var rect2 = pw6[i +1].getBoundingClientRect();	
+					if(playerleft <= rect1.right  && playerleft >=rect2.left   ){
+					playerleft += psied		
+					frog.style.marginLeft = playerleft  +"px"
+					kolizja()
+					}		
+}	
+        },50)   
+        }
+ else if(playertop< window.innerHeight /15  * 5 && playertop > window.innerHeight /15  * 4 ){ 
+        		mv = setInterval(function(){ 	
+        		for(i =-1; i<2; i++){
+        		var rect1 = pw5[i].getBoundingClientRect(); 
+				if(i == 1)
+				var rect2 = pw5[-1].getBoundingClientRect();
+				else
+				var rect2 = pw5[i +1].getBoundingClientRect();	
+					if(playerleft <= rect1.right  && playerleft >=rect2.left   ){
+					playerleft += ppiet		
+					frog.style.marginLeft = playerleft  +"px"
+					kolizja()
+					}		
+}	
+        },50)   
+        }
+ else if(playertop< window.innerHeight /15  * 3 && playertop > window.innerHeight /15  * 2 ){ 
+        		mv = setInterval(function(){ 	
+        		for(i =-1; i<3; i++){
+        		var rect1 = pw3[i].getBoundingClientRect(); 
+				if(i == 2)
+				var rect2 = pw3[-1].getBoundingClientRect();
+				else
+				var rect2 = pw3[i +1].getBoundingClientRect();	
+					if(playerleft <= rect1.right  && playerleft >=rect2.left   ){
+					playerleft += psied	
+					frog.style.marginLeft = playerleft  +"px"
+					kolizja()
+					}		
+}	
+        },50)   
+        }
+        }
+     
+		function poj12(){
+		var rl = []
+		
+		
+		rl[0] = 0
+		rl[1] = window.innerWidth/4 
+		rl[2] = window.innerWidth/4 *2
+		rl[3] = window.innerWidth/4 *3
+			setInterval(function(){ 
+			for(i =0; i<4; i++){
+				pw12[i].style.left = rl[i]  +"px" 
+				if(rl[i] >=window.innerWidth)
+				rl[i] = 0
+				else if(rl[i] < window.innerWidth)
+				rl[i]+=8
+			}
+			},50)
+		}
+		function poj11(){
+		var rl = []
+		rl[0] = 0
+		rl[1] = window.innerWidth/4 
+		rl[2] = window.innerWidth/4 *2
+		rl[3] = window.innerWidth/4 *3
+			setInterval(function(){ 
+			for(i =0; i<4; i++){
+				pw11[i].style.right = rl[i]  +"px" 
+				//rl[i]+=9
+				if(rl[i] >=window.innerWidth)
+				rl[i] = 0
+				else if(rl[i] < window.innerWidth)
+				rl[i]+= psied
+			}
+			},50)
+		}
+		function poj10(){
+		var rl = 0
+			setInterval(function(){ 
+				pw10.style.left = rl  +"px" 
+				if(rl>= window.innerWidth)
+				rl= 0
+				else if(rl < window.innerWidth)
+				rl+= pdziew
+			
+			},7)
+		}
+		function poj9(){
+		var rl = []
+		rl[0] = 0
+		rl[1] = window.innerWidth/4 
+		rl[2] = window.innerWidth/4 *2
+		rl[3] = window.innerWidth/4 *3
+			setInterval(function(){ 
+			for(i =0; i<4; i++){
+				pw9[i].style.right = rl[i]  +"px" 
+				if(rl[i] >=window.innerWidth)
+				rl[i] = 0
+				else if(rl[i] < window.innerWidth)
+				rl[i]+=pdycha
+			}
+			},50)
+		}
+			function poj3(){
+		var rl = []
+		rl[-1] = window.innerWidth/3 * -1
+		rl[0] = 0 
+		rl[1] = window.innerWidth/3 
+		rl[2] = window.innerWidth/3 *2
+			setInterval(function(){ 
+			for(i =-1; i<3; i++){
+				pw3[i].style.left = rl[i]  +"px" 
+				if(rl[i] >=window.innerWidth)
+				rl[i] = window.innerWidth/3 * -1
+				else if(rl[i] < window.innerWidth)
+				rl[i]+=psied
+			}
+			},50)
+		}
+		function poj5(){
+		var rl = []
+		rl[-1] = window.innerWidth/2 * -1
+		rl[0] = 0 
+		rl[1] = window.innerWidth/2 
+			setInterval(function(){ 
+			for(i =-1; i<2; i++){
+				pw5[i].style.left = rl[i]  +"px" 
+				if(rl[i] >=window.innerWidth)
+				rl[i] = window.innerWidth/2* -1
+				else if(rl[i] < window.innerWidth)
+				rl[i]+=ppiet
+			}
+			},50)
+		}
+		function poj6(){
+		var rl = []
+		rl[-1] = window.innerWidth/4 * -1
+		rl[0] = 0 
+		rl[1] = window.innerWidth/4 
+		rl[2] = window.innerWidth/4 *2
+		rl[3] = window.innerWidth/4 *3
+			setInterval(function(){ 
+			for(i =-1; i<4; i++){
+				pw6[i].style.left = rl[i]  +"px" 
+				if(rl[i] >=window.innerWidth)
+				rl[i] = window.innerWidth/4 * -1
+				else if(rl[i] < window.innerWidth)
+				rl[i]+=psied
+			}
+			},50)
+		}
+		function poj7(){
+		var rl = []
+		rl[-1] = window.innerWidth/3 * -1
+		rl[0] = 0 
+		rl[1] = window.innerWidth/3 
+		rl[2] = window.innerWidth/3 *2
+			setInterval(function(){ 
+			for(i =-1; i<3; i++){
+				pw7[i].style.right = rl[i]  +"px" 
+				if(rl[i] >=window.innerWidth)
+				rl[i] = window.innerWidth/3 * -1
+				else if(rl[i] < window.innerWidth)
+				rl[i]+=pszesc
+			}
+			},50)
+		}
+		function poj4(){
+		var rl = []
+		rl[-1] = window.innerWidth/3 * -1
+		rl[0] = 0 
+		rl[1] = window.innerWidth/3 
+		rl[2] = window.innerWidth/3 *2
+			setInterval(function(){ 
+			for(i =-1; i<3; i++){
+				pw4[i].style.right = rl[i]  +"px" 
+				if(rl[i] >=window.innerWidth)
+				rl[i] = window.innerWidth/3 * -1
+				else if(rl[i] < window.innerWidth)
+				rl[i]+=pdziew
+			}
+			},50)
+		}
+		function die(pozt){
+			var die= document.createElement("img");
+				die.src = "obrazy/die.gif"
+				die.style.width = "6vw";
+				die.style.marginTop= pozt + "px";
+				die.style.marginLeft=playerleft  +"px"
+				die.style.position = "fixed"
+			//	bw2[i].style.display = "inline-block"
+				document.getElementById("plansza").appendChild(die);
+				setTimeout(function(){
+						die.remove()
+				},940)
+		}
+function timee(){
+	var wid = time[1].getBoundingClientRect().width;
+	var pom = wid *0.003
+	var pom2 = wid*0.2
+	tint = setInterval(function(){
+		
+		 wid -= pom
+		 time[1].style.width = wid
+		// console.log(wid)
+		 if(wid < pom2 && wid > pom2-50  )
+		 document.getElementById("timee").play()
+		
+		 if(wid < pom2){
+		
+			time[0].style.color="#90243a"
+			time[1].style.backgroundColor="#90243a"
+		}
+		if(wid <= 1)
+			kaput()
+		
+
+
+	},60 )
+}
+function nextlevel(){
+			for(i =0; i<5; i++)
+				bw2[i].src = "obrazy/sc.png"
+				life = 4
+				w1[1].src = "obrazy/life"+life+".png"
+				pszesc = 7, psied = 8, posiem = 9, pdziew = 10, pdycha = 11; ppiet = 16
+				
+				
+				
+}
+	
+</script>
+</head>
+<body  >
+<body onload="init()">
+	
+		<div id="plansza"></div>
+		<audio id="audiostart">
+  		<source src="mp3/start.mp3" type="audio/mpeg">
+		</audio>
+		<audio id="gover">
+  		<source src="mp3/gameover.mp3" type="audio/mpeg">
+		</audio>
+		<audio id="jump">
+  		<source src="mp3/jump.mp3" type="audio/mpeg">
+		</audio>
+		<audio id="jump2">
+  		<source src="mp3/jump.mp3" type="audio/mpeg">
+		</audio>
+		<audio id="timee">
+  		<source src="mp3/time.mp3" type="audio/mpeg">
+		</audio>
+</body>
+</html>
